@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import BeerRow from './BeerRow';
 
@@ -26,10 +26,19 @@ export default class Home extends React.Component {
       }).catch(console.log);
   }
 
+  onPress(beer) {
+    console.log(beer, "beer before changing page");
+    this.props.navigation.navigate('Details', { beer });
+  }
+
 
   renderItem = ({ item }) => {
-    console.log(item, "bieeeeeerrrruh")
-    return <BeerRow beer={item} />
+    console.log(item, "bieeeeeerrrruh");
+    return (
+      <TouchableOpacity onPress={() => this.onPress(item)}>
+        <BeerRow beer={item} />
+      </TouchableOpacity>
+    );
   };
 
   renderSeparator = () => (

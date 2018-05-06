@@ -4,7 +4,8 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import Home from './Home';
 import AddBeer from './AddBeer';
 import MapBeer from './MapBeer';
-import TakePicture from './TakePicture'
+import TakePicture from './TakePicture';
+import Details from './Details';
 import { Icon } from 'react-native-elements';
 
 
@@ -13,7 +14,7 @@ export const Tabs = TabNavigator({
     screen: Home,
     navigationOptions: {
       tabBarIcon: () => {
-        return <Icon name='ios-home' type='ionicon' />
+        return <Icon name='ios-home' color="#ffffff" type='ionicon' />
       }
     }
   },
@@ -21,7 +22,7 @@ export const Tabs = TabNavigator({
     screen: AddBeer,
     navigationOptions: {
       tabBarIcon: () => {
-        return <Icon name='ios-add-circle' type='ionicon' />
+        return <Icon name='ios-add-circle' color="#ffffff" type='ionicon' />
       }
     }
   },
@@ -29,7 +30,7 @@ export const Tabs = TabNavigator({
     screen: MapBeer,
     navigationOptions: {
       tabBarIcon: () => {
-        return <Icon name='md-globe' type='ionicon' />
+        return <Icon name='md-globe' color="#ffffff" type='ionicon' />
       }
     }
   }
@@ -54,8 +55,12 @@ export const Navigation = StackNavigator({
   Tabs: { screen: Tabs },
   AddBeer: { screen: AddBeer, },
   TakePicture: { screen: TakePicture, },
+  Details: { screen: Details },
 }, {
     navigationOptions: {
+      headerTitle: () => {
+        return <View style={{ flex: 1, alignSelf: 'center' }}><Icon name='md-beer' color="#ffffff" type='ionicon' /></View>
+      },
       headerStyle: {
         backgroundColor: '#a2273c',
         height: 60,
