@@ -71,11 +71,6 @@ const style = StyleSheet.create({
     padding: 20,
     backgroundColor: '#ffffff',
   },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
   capture: {
     flex: 0,
     backgroundColor: '#fff',

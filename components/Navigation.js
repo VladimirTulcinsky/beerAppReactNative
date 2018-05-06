@@ -7,14 +7,8 @@ import MapBeer from './MapBeer';
 import TakePicture from './TakePicture'
 import { Icon } from 'react-native-elements';
 
-export const Navigation = StackNavigator({
-  AddBeer: { screen: AddBeer, },
-  TakePicture: { screen: TakePicture, },
-});
-
 
 export const Tabs = TabNavigator({
-
   Home: {
     screen: Home,
     navigationOptions: {
@@ -24,7 +18,7 @@ export const Tabs = TabNavigator({
     }
   },
   AddBeer: {
-    screen: Navigation,
+    screen: AddBeer,
     navigationOptions: {
       tabBarIcon: () => {
         return <Icon name='ios-add-circle' type='ionicon' />
@@ -55,4 +49,28 @@ export const Tabs = TabNavigator({
       }
     }
   });
+
+export const Navigation = StackNavigator({
+  Tabs: { screen: Tabs },
+  AddBeer: { screen: AddBeer, },
+  TakePicture: { screen: TakePicture, },
+}, {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#a2273c',
+        height: 60,
+        paddingTop: 10,
+        shadowColor: 'grey',
+        shadowOffset: {
+          width: 2,
+          height: 2
+        },
+      },
+    },
+  }
+);
+
+
+
+
 
