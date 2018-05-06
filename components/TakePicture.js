@@ -6,6 +6,9 @@ import { RNCamera } from 'react-native-camera';
 import { StackNavigator } from 'react-navigation';
 
 export default class TakePicture extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -33,9 +36,11 @@ export default class TakePicture extends React.Component {
 
   takePicture = async function () {
     if (this.camera) {
-      const options = { quality: 0.5, base64: true };
+      const options = { quality: 1, base64: true };
       const data = await this.camera.takePictureAsync(options)
       console.log(data.uri);
+      this.props.navigation.state.params.returnData(data);
+      this.props.navigation.goBack();
     }
   };
 }

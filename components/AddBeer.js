@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, PickerIOS, Button, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, PickerIOS, Button, Dimensions, TouchableOpacity, ScrollView, Image } from 'react-native';
 import t from 'tcomb-form-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -7,6 +7,9 @@ import { RNCamera } from 'react-native-camera';
 export default class AddBeer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      picture: {}
+    }
   }
   handleSubmit = () => {
     const value = this._form.getValue();
@@ -36,21 +39,21 @@ export default class AddBeer extends React.Component {
 
   goToTakePicture() {
     console.log("go to take picture");
-    this.props.navigation.navigate('TakePicture');
+    this.props.navigation.navigate('TakePicture', { returnData: this.returnData.bind(this) });
+  }
+
+  returnData(picture) {
+    console.log(picture, "info picture");
+    this.setState({ picture });
   }
 
 
-
-
   render() {
+
+
     return (
       <ScrollView contentContainerStyle={style.container}>
-        <TouchableOpacity
-          onPress={() => this.goToTakePicture()}
-          style={style.capture}
-        >
-          <Text style={{ fontSize: 14 }}> SNAP </Text>
-        </TouchableOpacity>
+        {this.Picture()}
 
         <Form ref={c => this._form = c}
           type={beer}
@@ -62,6 +65,33 @@ export default class AddBeer extends React.Component {
       </ScrollView>
     );
   }
+
+
+  Picture() {
+    console.log("picutre function");
+    if (Object.keys(this.state.picture).length != 0) {
+      return (
+        <Image
+          style={style.picture}
+          source={{ uri: 'data:image/png;base64,' + this.state.picture.base64 }}
+        />
+      );
+    }
+    else {
+      console.log("touchable opacity");
+      return (
+        <TouchableOpacity
+          onPress={() => this.goToTakePicture()}
+          style={style.capture}
+        >
+          <Text style={{ fontSize: 14 }}> SNAP </Text>
+        </TouchableOpacity>
+      );
+    }
+  }
+
+
+
 }
 
 const style = StyleSheet.create({
@@ -79,6 +109,12 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20
+  },
+  picture: {
+    width: 120,
+    height: 100,
+    alignSelf: 'center',
+    borderRadius: 5,
   }
 });
 
