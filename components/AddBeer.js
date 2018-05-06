@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, PickerIOS, Button, Dimensions, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, PickerIOS, Button, Dimensions, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 import t from 'tcomb-form-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -12,15 +12,30 @@ export default class AddBeer extends React.Component {
     }
   }
   handleSubmit = () => {
-    const value = this._form.getValue();
-    console.log('value: ', value);
+    let value = this._form.getValue();
+
+    //TODO change name
+    const picture = {
+      uri: this.state.picture.uri,
+      type: 'image/jpeg',
+      name: 'beer.jpg', 
+    };
+
+    let formData = new FormData();
+
+    for (let item in value) {
+      formData.append(item, value[item]);
+    }
+
+    formData.append("beerPicture", picture);
+    console.log(formData, "formdata");
+
     fetch('https://beeranking.herokuapp.com/beers', {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data'
       },
-      body: JSON.stringify(value)
+      body: formData
     })
       .then(res => {
         console.log(res, "succeeded");
@@ -89,8 +104,6 @@ export default class AddBeer extends React.Component {
       );
     }
   }
-
-
 
 }
 

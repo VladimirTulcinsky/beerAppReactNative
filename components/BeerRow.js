@@ -1,11 +1,10 @@
 import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 
-const BeerRow = ({
-    beer
-}) => (
+const BeerRow = ({ beer }) =>
+    (
         <View style={styles.row}>
-            {/* <Image source={{ uri: artist.artistImageUrl }} style={styles.picture} /> */}
+            <Image source={{ uri: "https://beeranking.herokuapp.com/" + beer.path }} style={styles.picture} />
             <Text style={styles.primaryText}>{beer.name}</Text>
         </View>
     );
